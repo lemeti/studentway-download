@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudentWay — Épreuves, corrigés et assistant IA pour le BEPC, le Probatoire et le Bac</title>
+<meta name="description" content="Téléchargez StudentWay pour Android : les épreuves d'examen du Cameroun (BEPC, Probatoire, Baccalauréat), leurs corrigés et un assistant IA qui vous explique. Lecture hors ligne. Gratuit pour commencer.">
+<meta name="theme-color" content="#001D7D">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="StudentWay — Réussissez votre examen">
+<meta property="og:description" content="Épreuves, corrigés et assistant IA pour le BEPC, le Probatoire et le Bac. Téléchargez l'application Android.">
+<meta property="og:image" content="/og.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1A4FD6; --blue-2:#0C5CE8; --navy:#001D7D; --ink:#0F1B3D; --ink-2:#44506B;
+  --amber:#FF9F1C; --amber-2:#FFB54D;
+  --bg:#FFFFFF; --bg-soft:#F4F7FE; --line:#E3E9F7; --card:#FFFFFF;
+  --radius:20px; --shadow:0 10px 30px -12px rgba(15,27,61,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 20px}
+
+/* ---------- Boutons ---------- */
+.btn{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;border-radius:16px;transition:transform .15s ease,box-shadow .2s ease,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:3px solid var(--amber-2);outline-offset:3px}
+.btn-dl{background:var(--amber);color:#1B1200;padding:16px 26px;font-size:17px;box-shadow:0 14px 34px -10px rgba(255,159,28,.65)}
+.btn-dl:hover{background:var(--amber-2);box-shadow:0 18px 40px -10px rgba(255,159,28,.8)}
+.btn-dl svg{width:26px;height:26px;flex:none}
+.btn-dl .l1{display:block;font-size:12px;font-weight:600;opacity:.75;line-height:1.2}
+.btn-dl .l2{display:block;line-height:1.2}
+.btn-ghost{color:#fff;padding:16px 22px;border:1.5px solid rgba(255,255,255,.35)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-sm{padding:10px 18px;font-size:15px;border-radius:12px;background:var(--amber);color:#1B1200}
+.btn-sm:hover{background:var(--amber-2)}
+
+/* ---------- Navigation ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .25s,box-shadow .25s}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav .logo img{height:34px;width:auto}
+.nav .logo .dark{display:none}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;color:rgba(255,255,255,.85);font-weight:600;font-size:15px}
+.nav ul a:hover{color:#fff}
+.nav.scrolled{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.nav.scrolled .logo .light{display:none}
+.nav.scrolled .logo .dark{display:block}
+.nav.scrolled ul a{color:var(--ink-2)}
+.nav.scrolled ul a:hover{color:var(--blue)}
+
+/* ---------- Héros ---------- */
+.hero{position:relative;overflow:hidden;color:#fff;padding:140px 0 110px;
+  background:radial-gradient(1200px 600px at 85% -10%,rgba(40,120,255,.55),transparent 60%),
+             radial-gradient(900px 500px at -10% 110%,rgba(255,159,28,.18),transparent 60%),
+             linear-gradient(160deg,var(--blue-2) 0%,#0736B4 45%,var(--navy) 100%)}
+.hero::before{content:"";position:absolute;inset:0;opacity:.18;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(ellipse at 70% 30%,#000 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 70% 30%,#000 20%,transparent 70%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);font-size:13.5px;font-weight:600}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(255,159,28,.25)}
+.hero h1{font-size:clamp(36px,5.4vw,62px);line-height:1.06;letter-spacing:-.035em;font-weight:800;margin:22px 0 18px}
+.hero h1 .hl{color:var(--amber);position:relative;white-space:nowrap}
+.hero p.lead{font-size:clamp(17px,1.6vw,19.5px);color:rgba(255,255,255,.84);max-width:560px;margin:0 0 32px}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.meta{margin-top:16px;font-size:13.5px;color:rgba(255,255,255,.7)}
+.ios-note{display:none;margin-top:14px;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.12);font-size:14.5px;max-width:520px}
+.is-ios .ios-note{display:block}
+.trust{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:34px;padding:0;list-style:none;font-size:14.5px;color:rgba(255,255,255,.88);font-weight:500}
+.trust li{display:flex;align-items:center;gap:8px}
+.trust svg{width:18px;height:18px;color:var(--amber)}
+
+/* ---------- Téléphone ---------- */
+.phone-zone{position:relative;display:flex;justify-content:center}
+.phone{position:relative;width:300px;height:610px;border-radius:46px;background:#0A0F24;padding:12px;
+  box-shadow:0 50px 90px -30px rgba(0,0,0,.6),0 0 0 2px rgba(255,255,255,.08) inset;transform:rotate(-3deg);animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-12px)}}
+.screen{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:var(--bg-soft);color:var(--ink);font-size:12px}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:24px;border-radius:14px;background:#0A0F24;z-index:3}
+.app-top{background:linear-gradient(150deg,var(--blue) 0%,#0E2E7E 100%);color:#fff;padding:46px 18px 22px;border-radius:0 0 26px 26px}
+.app-top .hi{font-size:12px;opacity:.8}
+.app-top .name{font-size:18px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+.chips{display:flex;gap:6px;margin-top:12px}
+.chip{padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.16);font-size:10.5px;font-weight:700}
+.chip.on{background:var(--amber);color:#1B1200}
+.app-body{padding:14px 14px 0}
+.app-h{font-size:12.5px;font-weight:800;margin:4px 2px 10px;display:flex;justify-content:space-between}
+.app-h span{color:var(--blue);font-weight:700;font-size:11px}
+.doc{display:flex;gap:10px;align-items:center;background:#fff;border-radius:16px;padding:11px;margin-bottom:9px;box-shadow:0 4px 14px -8px rgba(15,27,61,.25)}
+.doc .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.doc .t{font-weight:700;font-size:12px;line-height:1.25}
+.doc .s{font-size:10.5px;color:var(--ink-2)}
+.tag{margin-left:auto;font-size:9.5px;font-weight:700;padding:4px 7px;border-radius:7px;background:#E6F6EC;color:#12804A;white-space:nowrap}
+.tag.free{background:#FFF3E0;color:#B36200}
+.app-nav{position:absolute;bottom:0;left:0;right:0;height:62px;background:#fff;display:flex;justify-content:space-around;align-items:center;border-top:1px solid var(--line)}
+.app-nav i{width:22px;height:5px;border-radius:3px;background:#D5DDF0}
+.app-nav i.on{background:var(--blue);width:30px}
+.bubble{position:absolute;z-index:4;text-align:left;background:#fff;color:var(--ink);border-radius:18px;padding:12px 14px;box-shadow:0 24px 50px -18px rgba(0,0,0,.45);font-size:13px;max-width:230px}
+.bubble b{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--blue);margin-bottom:4px}
+.bubble b::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.b1{right:-6px;top:120px;animation:float2 6s ease-in-out infinite}
+.b2{left:-24px;bottom:110px;animation:float2 6s ease-in-out -3s infinite}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ---------- Bandeau examens ---------- */
+.exams{margin-top:-46px;position:relative;z-index:5}
+.exams .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.exam{background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;gap:16px;align-items:center}
+.exam .num{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-weight:800;font-size:18px;color:#fff;background:linear-gradient(150deg,var(--blue-2),var(--navy));flex:none}
+.exam h3{margin:0;font-size:18px;letter-spacing:-.02em}
+.exam p{margin:2px 0 0;color:var(--ink-2);font-size:14.5px}
+
+/* ---------- Sections ---------- */
+section{padding:96px 0}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+h2.title{font-size:clamp(28px,3.6vw,42px);line-height:1.12;letter-spacing:-.03em;margin:0 0 14px;font-weight:800}
+.sub{color:var(--ink-2);font-size:17.5px;max-width:620px;margin:0}
+.head{text-align:center;margin:0 auto 52px}
+.head .sub{margin:0 auto}
+
+.features .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.feat:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#C9D6F5}
+.feat .ic{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:#EAF0FF;color:var(--blue);margin-bottom:18px}
+.feat .ic.amb{background:#FFF3E0;color:#D97800}
+.feat .ic svg{width:26px;height:26px}
+.feat h3{margin:0 0 8px;font-size:19px;letter-spacing:-.02em}
+.feat p{margin:0;color:var(--ink-2);font-size:15.5px}
+
+/* ---------- IA mise en avant ---------- */
+.ai{background:var(--bg-soft)}
+.ai .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.chat{background:#fff;border-radius:26px;padding:24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.msg{max-width:88%;padding:12px 16px;border-radius:18px;margin-bottom:12px;font-size:15px}
+.msg.me{margin-left:auto;background:var(--blue);color:#fff;border-bottom-right-radius:6px}
+.msg.bot{background:var(--bg-soft);border-bottom-left-radius:6px}
+.msg.photo{display:flex;align-items:center;gap:10px}
+.msg.photo .ph{width:44px;height:54px;border-radius:8px;background:repeating-linear-gradient(0deg,#fff 0 6px,#DCE5FA 6px 7px);border:1px solid rgba(255,255,255,.5);flex:none}
+.checks{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.checks svg{width:22px;height:22px;flex:none;color:#12A05C;margin-top:2px}
+
+/* ---------- Installation ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px}
+.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--amber);color:#1B1200;font-weight:800;margin-bottom:16px}
+.step h3{margin:0 0 6px;font-size:17.5px;letter-spacing:-.01em}
+.step p{margin:0;color:var(--ink-2);font-size:15px}
+.note{margin:28px auto 0;max-width:820px;display:flex;gap:14px;background:#EAF0FF;border-radius:16px;padding:18px 20px;font-size:15px;color:#1B2B57}
+.note svg{width:24px;height:24px;flex:none;color:var(--blue)}
+
+/* ---------- Tarifs ---------- */
+.pricing{background:var(--bg-soft)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;max-width:1020px;margin:0 auto}
+.plan{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px 28px;display:flex;flex-direction:column}
+.plan h3{margin:0;font-size:18px}
+.plan .price{font-size:40px;font-weight:800;letter-spacing:-.03em;margin:14px 0 2px}
+.plan .price small{font-size:16px;font-weight:600;color:var(--ink-2);letter-spacing:0}
+.plan .per{color:var(--ink-2);font-size:14.5px;margin-bottom:20px}
+.plan ul{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px;font-size:15px}
+.plan li{display:flex;gap:10px}
+.plan li svg{width:20px;height:20px;flex:none;color:var(--blue);margin-top:2px}
+.plan.best{background:linear-gradient(160deg,var(--blue-2),var(--navy));color:#fff;border:none;transform:scale(1.03);box-shadow:0 30px 60px -24px rgba(0,29,125,.6);position:relative}
+.plan.best .per,.plan.best .price small{color:rgba(255,255,255,.75)}
+.plan.best li svg{color:var(--amber)}
+.plan .badge{position:absolute;top:-13px;left:28px;background:var(--amber);color:#1B1200;font-size:12.5px;font-weight:800;padding:5px 12px;border-radius:999px}
+.plan .foot{margin-top:auto;font-size:14px;color:var(--ink-2)}
+.plan.best .foot{color:rgba(255,255,255,.8)}
+.paynote{text-align:center;margin-top:34px;color:var(--ink-2);font-size:15.5px}
+.paynote strong{color:var(--ink)}
+
+/* ---------- FAQ ---------- */
+.faq .list{max-width:820px;margin:0 auto;display:grid;gap:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0 22px;transition:box-shadow .2s}
+details[open]{box-shadow:var(--shadow)}
+summary{cursor:pointer;list-style:none;padding:20px 0;font-weight:700;font-size:16.5px;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:24px;line-height:1;color:var(--blue);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 20px;color:var(--ink-2);font-size:15.5px}
+
+/* ---------- Appel final ---------- */
+.final{padding:0 0 96px}
+.final .box{border-radius:32px;padding:64px 40px;text-align:center;color:#fff;position:relative;overflow:hidden;
+  background:radial-gradient(700px 300px at 50% 0%,rgba(40,120,255,.6),transparent 70%),linear-gradient(160deg,var(--blue-2),var(--navy))}
+.final img{width:76px;height:76px;margin:0 auto 20px;border-radius:20px;box-shadow:0 16px 30px -10px rgba(0,0,0,.4)}
+.final h2{font-size:clamp(28px,3.8vw,44px);letter-spacing:-.03em;margin:0 0 12px;line-height:1.1}
+.final p{color:rgba(255,255,255,.82);margin:0 auto 30px;max-width:540px;font-size:17px}
+.final .cta-row{justify-content:center}
+
+/* ---------- Pied de page ---------- */
+footer{border-top:1px solid var(--line);padding:36px 0;font-size:14.5px;color:var(--ink-2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+footer img{height:28px;width:auto}
+footer nav{display:flex;flex-wrap:wrap;gap:22px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--blue)}
+
+/* ---------- Barre mobile ---------- */
+.sticky{display:none}
+
+/* ---------- Apparition ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.phone,.bubble{animation:none}html{scroll-behavior:auto}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .hero .wrap,.ai .wrap{grid-template-columns:1fr}
+  .hero{padding:120px 0 100px;text-align:center}
+  .hero p.lead,.ios-note{margin-left:auto;margin-right:auto}
+  .cta-row,.trust{justify-content:center}
+  .phone-zone{margin-top:20px}
+  .features .grid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .plans{grid-template-columns:1fr;max-width:440px}
+  .plan.best{transform:none}
+  .nav ul{display:none}
+  .ai .chat{order:2}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  section{padding:72px 0}
+  .exams .grid,.features .grid,.steps{grid-template-columns:1fr}
+  .phone{width:260px;height:530px}
+  .b2{left:-6px}
+  .b1{right:-2px}
+  .bubble{max-width:190px;font-size:12px}
+  .btn-dl{width:100%;justify-content:center}
+  .btn-ghost{width:100%;justify-content:center}
+  .final .box{padding:48px 22px;border-radius:24px}
+  .nav .btn-sm{display:none}
+  .sticky{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;transform:translateY(140%);transition:transform .3s}
+  .sticky.show{transform:none}
+  .sticky .btn-dl{box-shadow:0 12px 30px -8px rgba(0,0,0,.4)}
+  footer{padding-bottom:100px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== Navigation ===================== -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="StudentWay, accueil">
+      <img class="light" src="/wordmark-white.png" alt="StudentWay" width="140" height="32">
+      <img class="dark" src="/wordmark-dark.png" alt="StudentWay" width="140" height="32">
+    </a>
+    <ul>
+      <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn btn-sm js-dl" href="https://github.com/lemeti/studentway-download/releases/latest/download/StudentWay.apk">Télécharger</a>
+  </div>
+</header>
+
+<!-- ===================== Héros ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill"><span class="dot"></span>Application Android disponible</span>
+      <h1>Réussissez votre <span class="hl">BEPC</span>, votre Probatoire et votre Bac.</h1>
+      <p class="lead">Les épreuves d'examen du Cameroun, leurs corrigés et un assistant IA qui vous explique chaque question — dans votre poche, même sans connexion.</p>
+      <div class="cta-row">
+        <a class="btn btn-dl js-dl" href="https://github.com/lemeti/studentway-download/releases/latest/download/StudentWay.apk">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18a.39.39 0 0 0-.68-.39l-1.87 3.23a11.4 11.4 0 0 0-9.78 0L5.24 5.91a.39.39 0 1 0-.68.39L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></svg>
+          <span><span class="l1">Télécharger pour</span><span class="l2">Android</span></span>
+        </a>
+        <a class="btn btn-ghost" href="#installation">Comment installer&nbsp;?</a>
+      </div>
+      <div class="meta">Fichier APK · <span class="js-size">62 Mo</span> · version <span class="js-ver">0.1.0</span> · gratuit</div>
+      <div class="ios-note">Vous êtes sur iPhone : la version iOS arrive bientôt. Écrivez-nous sur <a href="https://wa.me/237653644072" style="color:var(--amber);font-weight:700">WhatsApp</a> pour être prévenu.</div>
+      <ul class="trust">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Gratuit pour commencer</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Orange Money &amp; MTN MoMo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sans publicité</li>
+      </ul>
+    </div>
+
+    <div class="phone-zone" aria-hidden="true">
+      <div class="bubble b1"><b>Assistant IA</b>Pour l'exercice 2, commencez par calculer le discriminant Δ = b² − 4ac…</div>
+      <div class="bubble b2"><b>Hors ligne</b>3 épreuves prêtes à réviser sans connexion</div>
+      <div class="phone">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="app-top">
+            <div class="hi">Bonjour 👋</div>
+            <div class="name">Prêt pour le Bac ?</div>
+            <div class="chips"><span class="chip on">Terminale</span><span class="chip">Série C</span><span class="chip">Maths</span></div>
+          </div>
+          <div class="app-body">
+            <div class="app-h">Épreuves récentes <span>Tout voir</span></div>
+            <div class="doc"><div class="ic" style="background:#EAF0FF;color:#1A4FD6">∑</div><div><div class="t">Mathématiques</div><div class="s">Baccalauréat C · Session officielle</div></div><span class="tag">Corrigé</span></div>
+            <div class="doc"><div class="ic" style="background:#FFF3E0;color:#D97800">Φ</div><div><div class="t">Physique</div><div class="s">Baccalauréat C · Épreuve zéro</div></div><span class="tag free">Gratuit</span></div>
+            <div class="doc"><div class="ic" style="background:#E6F6EC;color:#12804A">🧬</div><div><div class="t">SVT</div><div class="s">Baccalauréat D · Session officielle</div></div><span class="tag">Corrigé</span></div>
+            <div class="doc"><div class="ic" style="background:#F3EAFE;color:#7A3FD6">A</div><div><div class="t">Anglais</div><div class="s">Probatoire · Session officielle</div></div><span class="tag free">Gratuit</span></div>
+          </div>
+          <div class="app-nav"><i class="on"></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Examens ===================== -->
+<div class="exams">
+  <div class="wrap">
+    <div class="grid">
+      <div class="exam reveal"><div class="num">3e</div><div><h3>BEPC</h3><p>Classe de Troisième</p></div></div>
+      <div class="exam reveal"><div class="num">1re</div><div><h3>Probatoire</h3><p>Séries A4, C, D et TI</p></div></div>
+      <div class="exam reveal"><div class="num">Tle</div><div><h3>Baccalauréat</h3><p>Séries A4, C, D et TI</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== Fonctionnalités ===================== -->
+<section class="features" id="fonctionnalites">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Tout pour réviser</span>
+      <h2 class="title">Une seule application pour préparer votre examen</h2>
+      <p class="sub">Choisissez votre classe et votre série : StudentWay vous montre uniquement ce qui compte pour votre examen.</p>
+    </div>
+    <div class="grid">
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+        <h3>Épreuves officielles</h3>
+        <p>Les annales des sessions officielles et les épreuves zéro, classées par examen, série, matière et année.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic amb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h3>Corrigés détaillés</h3>
+        <p>Des corrigés rédigés comme une copie modèle : vous voyez exactement ce que le correcteur attend.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg></div>
+        <h3>Assistant IA</h3>
+        <p>Posez vos questions à toute heure : l'assistant explique le cours et la méthode, pas à pas.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic amb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+        <h3>Photographiez une épreuve</h3>
+        <p>Prenez en photo un sujet de votre professeur ou d'un livre : l'assistant le lit et vous guide.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.58 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg></div>
+        <h3>Lecture hors ligne</h3>
+        <p>Téléchargez vos épreuves une fois, révisez ensuite sans connexion et sans consommer de données.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic amb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Compte protégé</h3>
+        <p>Inscription avec votre numéro de téléphone, sans e-mail. Aucune publicité, aucune géolocalisation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== IA ===================== -->
+<section class="ai">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Assistant IA</span>
+      <h2 class="title">Bloqué sur un exercice&nbsp;? Demandez, tout simplement.</h2>
+      <p class="sub">Comme un répétiteur disponible jour et nuit. Il reprend l'énoncé avec vous, rappelle la notion du cours et vous fait avancer étape par étape.</p>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>30 questions par jour gratuites, 100 avec Premium</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Envoyez une photo ou un PDF de l'épreuve</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Vos conversations sont gardées pour réviser plus tard</li>
+      </ul>
+    </div>
+    <div class="chat reveal" aria-hidden="true">
+      <div class="msg me photo"><span class="ph"></span><span>Voici mon sujet de maths. Je ne comprends pas la question 3.</span></div>
+      <div class="msg bot">La question 3 demande d'étudier les variations de f. Première étape : calculez la dérivée f′(x). Que trouvez-vous ?</div>
+      <div class="msg me">f′(x) = 3x² − 12</div>
+      <div class="msg bot">Exact ! Maintenant, cherchez quand f′(x) s'annule : résolvez 3x² − 12 = 0. 👍</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Installation ===================== -->
+<section id="installation">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Installation</span>
+      <h2 class="title">Installé en moins de 2 minutes</h2>
+      <p class="sub">StudentWay s'installe directement depuis ce site, sans passer par le Play Store.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Téléchargez</h3><p>Appuyez sur « Télécharger pour Android ». Le fichier <b>StudentWay.apk</b> arrive dans vos téléchargements.</p></div>
+      <div class="step reveal"><h3>Ouvrez le fichier</h3><p>Touchez la notification de fin de téléchargement, ou ouvrez-le depuis l'application « Fichiers ».</p></div>
+      <div class="step reveal"><h3>Autorisez</h3><p>Si Android le demande, appuyez sur <b>Paramètres</b> puis activez <b>« Autoriser cette source »</b>.</p></div>
+      <div class="step reveal"><h3>Installez</h3><p>Appuyez sur <b>Installer</b>, puis ouvrez StudentWay et créez votre compte avec votre numéro.</p></div>
+    </div>
+    <div class="note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <div>Android peut afficher un avertissement du type « application inconnue » ou « Play Protect » : c'est normal pour toute application installée hors du Play Store. Choisissez <b>« Installer quand même »</b>. Téléchargez StudentWay uniquement depuis ce site.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Tarifs ===================== -->
+<section class="pricing" id="tarifs">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Tarifs</span>
+      <h2 class="title">Commencez gratuitement</h2>
+      <p class="sub">Passez à Premium quand vous voulez, pour tout débloquer.</p>
+    </div>
+    <div class="plans">
+      <div class="plan reveal">
+        <h3>Gratuit</h3>
+        <div class="price">0 <small>FCFA</small></div>
+        <div class="per">pour toujours</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Annales officielles</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Épreuves zéro</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Assistant IA : 30 questions par jour</li>
+        </ul>
+        <div class="foot">Idéal pour essayer l'application.</div>
+      </div>
+      <div class="plan best reveal">
+        <span class="badge">Meilleur prix</span>
+        <h3>Premium annuel</h3>
+        <div class="price">5 000 <small>FCFA</small></div>
+        <div class="per">par an · moins de 420 FCFA par mois</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Toutes les épreuves, toutes les années</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Tous les corrigés détaillés</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>100 questions par jour à l'IA</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Lecture hors ligne</li>
+        </ul>
+        <div class="foot">Toute l'année d'examen couverte.</div>
+      </div>
+      <div class="plan reveal">
+        <h3>Premium mensuel</h3>
+        <div class="price">750 <small>FCFA</small></div>
+        <div class="per">par mois</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Tout le contenu Premium</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>100 questions par jour à l'IA</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sans engagement</li>
+        </ul>
+        <div class="foot">Parfait pour le dernier mois avant l'examen.</div>
+      </div>
+    </div>
+    <p class="paynote reveal">Paiement dans l'application par <strong>Orange Money</strong> ou <strong>MTN Mobile Money</strong>. Vous avez un code promo ? Saisissez-le au moment de payer.</p>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Questions fréquentes</span>
+      <h2 class="title">Vous vous demandez…</h2>
+    </div>
+    <div class="list">
+      <details class="reveal"><summary>Pourquoi l'application n'est-elle pas sur le Play Store ?</summary><p>La publication sur le Play Store est en préparation. En attendant, vous pouvez installer StudentWay directement depuis ce site : c'est la même application, et vous recevrez les mises à jour ici.</p></details>
+      <details class="reveal"><summary>L'installation est-elle sûre ?</summary><p>Oui. L'avertissement d'Android apparaît pour toute application installée hors du Play Store, quelle qu'elle soit. Téléchargez StudentWay uniquement depuis ce site pour être sûr d'avoir le fichier officiel.</p></details>
+      <details class="reveal"><summary>Est-ce que ça marche sur iPhone ?</summary><p>La version iPhone est en cours de préparation. Écrivez-nous sur WhatsApp pour être prévenu dès sa sortie.</p></details>
+      <details class="reveal"><summary>Faut-il une connexion Internet ?</summary><p>Il en faut une pour créer votre compte, télécharger les épreuves et utiliser l'assistant IA. Une fois une épreuve téléchargée, vous la lisez hors ligne, sans consommer de données.</p></details>
+      <details class="reveal"><summary>Puis-je utiliser mon compte sur plusieurs téléphones ?</summary><p>Non : un compte est lié à un seul appareil, pour éviter le partage de comptes. Si vous changez de téléphone, contactez le support sur WhatsApp.</p></details>
+      <details class="reveal"><summary>Comment mettre l'application à jour ?</summary><p>Revenez sur ce site et téléchargez la dernière version, puis installez-la par-dessus l'ancienne. Votre compte et vos épreuves sont conservés.</p></details>
+      <details class="reveal"><summary>Comment payer l'abonnement Premium ?</summary><p>Directement dans l'application, par Orange Money ou MTN Mobile Money. En cas de souci, le support vous répond sur WhatsApp.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Appel final ===================== -->
+<section class="final">
+  <div class="wrap">
+    <div class="box reveal">
+      <img src="/icon-192.png" alt="" width="76" height="76">
+      <h2>Votre examen se prépare maintenant.</h2>
+      <p>Téléchargez StudentWay gratuitement et commencez à réviser dès aujourd'hui.</p>
+      <div class="cta-row">
+        <a class="btn btn-dl js-dl" href="https://github.com/lemeti/studentway-download/releases/latest/download/StudentWay.apk">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18a.39.39 0 0 0-.68-.39l-1.87 3.23a11.4 11.4 0 0 0-9.78 0L5.24 5.91a.39.39 0 1 0-.68.39L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></svg>
+          <span><span class="l1">Télécharger pour</span><span class="l2">Android</span></span>
+        </a>
+        <a class="btn btn-ghost" href="https://wa.me/237653644072">Une question&nbsp;? WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="/wordmark-dark.png" alt="StudentWay" width="122" height="28">
+    <nav>
+      <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="/confidentialite">Confidentialité</a>
+      <a href="https://wa.me/237653644072">Support WhatsApp</a>
+    </nav>
+    <span>© <span id="y">2026</span> StudentWay · Cameroun</span>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <a class="btn btn-dl js-dl" href="https://github.com/lemeti/studentway-download/releases/latest/download/StudentWay.apk">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18a.39.39 0 0 0-.68-.39l-1.87 3.23a11.4 11.4 0 0 0-9.78 0L5.24 5.91a.39.39 0 1 0-.68.39L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></svg>
+    <span class="l2">Télécharger l'application</span>
+  </a>
+</div>
+
+<script>
+/* ============================================================
+   RÉGLAGES — à modifier à chaque nouvelle version de l'APK.
+   Le lien "latest" pointe toujours vers la dernière Release
+   GitHub : il ne change pas tant que le fichier s'appelle
+   StudentWay.apk.
+   ============================================================ */
+var APK_URL = "https://github.com/lemeti/studentway-download/releases/latest/download/StudentWay.apk";
+var VERSION = "0.1.0";
+var TAILLE  = "62 Mo";
+
+document.querySelectorAll(".js-dl").forEach(function(a){ a.href = APK_URL; });
+document.querySelectorAll(".js-ver").forEach(function(e){ e.textContent = VERSION; });
+document.querySelectorAll(".js-size").forEach(function(e){ e.textContent = TAILLE; });
+document.getElementById("y").textContent = new Date().getFullYear();
+
+/* iPhone / iPad : on affiche un message au lieu de laisser télécharger un APK inutilisable */
+if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) document.documentElement.classList.add("is-ios");
+
+/* Barre de navigation opaque au défilement + bouton collant sur mobile */
+var nav = document.getElementById("nav"), sticky = document.getElementById("sticky");
+function onScroll(){
+  var y = window.scrollY;
+  nav.classList.toggle("scrolled", y > 30);
+  sticky.classList.toggle("show", y > 640);
+}
+window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+/* Apparition douce des blocs */
+if ("IntersectionObserver" in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, {threshold:.12});
+  document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+} else {
+  document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+}
+</script>
+</body>
+</html>
